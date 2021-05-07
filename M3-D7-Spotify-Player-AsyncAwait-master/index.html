@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <script src="https://kit.fontawesome.com/1205482781.js"></script>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Home</title>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!--SIDEBAR VERTICAL-->
+        <div class="col-2">
+          <nav
+            class="navbar navbar-expand-md navbar-white bg-navbar fixed-left justify-content-between"
+            id="sidebar"
+          >
+            <div class="nav-container">
+              <a class="navbar-brand" href="index.html">
+                <img
+                  src="logo/Spotify_Logo.png"
+                  alt="Spotify_Logo"
+                  width="131"
+                  height="40"
+                />
+              </a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <ul>
+                    <li>
+                      <a class="nav-item nav-link" href="index.html"
+                        ><i class="fas fa-home fa-lg"></i>&nbsp; Home
+                      </a>
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="#"
+                        ><i class="fas fa-book-open fa-lg"></i>&nbsp; Your
+                        Library</a
+                      >
+                    </li>
+                    <li>
+                      <div class="input-group mt-3">
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          id="searchField"
+                          placeholder="Search"
+                          aria-label="Search"
+                          aria-describedby="basic-addon2"
+                        />
+                        <div
+                          class="input-group-append"
+                          style="margin-bottom: 4%"
+                        >
+                          <button
+                            class="btn btn-outline-secondary btn-sm"
+                            type="button"
+                            id="button-addon1"
+                            onclick="search()"
+                          >
+                            GO
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="nav-btn">
+              <button class="btn signup-btn" type="button">Sign Up</button>
+              <button class="btn login-btn" type="button">Login</button>
+              <a href="#">Cookie Policy</a> |
+              <a href="#"> Privacy</a>
+            </div>
+          </nav>
+        </div>
+        <!--END SIDEBAR VERTICAL-->
+
+        <!--MAIN-->
+        <div class="col-12 mainPage">
+          <div class="row justify-content-center">
+            <div class="col-9 col-lg-11 mainLinks d-none d-md-flex">
+              <a id="Rock" href="#">ROCK</a>
+              <a id="Pop" href="#">POP</a>
+              <a id="Hip Hop" href="#">HIP HOP</a>
+              <a href="#">NEW RELEASES</a>
+              <a href="#">DISCOVER</a>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <div id="searchResults" style="display: none">
+                <h2>Search Results</h2>
+                <div
+                  class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <div id="results">
+                <h2 class="pl-3 text-white"></h2>
+                <div
+                  class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
+                >
+                  <div>
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END MAIN-->
+
+    <!--NAVBAR FLEX-BOTTOM-->
+    <div class="player container-fluid fixed-bottom bg-container pt-1">
+      <div class="row flex-nowrap justify-content-between playBar py-3">
+        <div class="col-3">
+          <div class="playerArtistInfo d-flex">
+            <img />
+            <div class="d-flex flex-column pl-2">
+              <h6></h6>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="playerControls w-50 d-flex justify-content-between">
+            <a href="#">
+              <img src="playerbuttons/Shuffle.png" alt="shuffle" />
+            </a>
+            <a href="#">
+              <img src="playerbuttons/Previous.png" alt="previous" />
+            </a>
+            <a id="playBtn" href="#" onclick="handlePlay()">
+              <img src="playerbuttons/Play.png" alt="play" />
+            </a>
+            <a href="#">
+              <img src="playerbuttons/Next.png" alt="next" />
+            </a>
+            <a href="#">
+              <img src="playerbuttons/Repeat.png" alt="repeat" />
+            </a>
+          </div>
+          <div class="progressContainer d-flex align-items-center">
+            <span class="currentTime">00:00</span>
+            <div class="progress w-100">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <audio></audio>
+              </div>
+            </div>
+            <span class="duration">00:00</span>
+          </div>
+        </div>
+        <div class="col-auto mr-3">
+          <div class="playerVolume">
+            <i class="fa fa-volume-up" onclick=""></i>
+            <input type="range" value="50" onchange="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END NAVBAR BOTTOM-->
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // ### Player functionality ###
+      const audio = document.getElementsByTagName("audio")[0]; // grabbing audio element
+      let playIcon = document.querySelector("img[alt='play']");
+      let prevVolume = 0.5;
+
+      const setPlayerSong = (song) => {
+        // setting song data for the player
+        audio.src = song.preview; // uses the preview .mp3 url to be used as audio source
+        playIcon.src = "./playerbuttons/Pause.png";
+        setPlayerInfos(song); // changes player information for every new card that we click
+        window.localStorage.setItem("songId", song.id); // stores the songId in the storage to retrieve it in the search() fetch
+        audio.play(); // plays the song via the preview link
+      };
+
+      const setPlayerInfos = (song) => {
+        const playerArtistInfo = document.querySelector(".playerArtistInfo"); // selects the player element that has the song info
+        const img = playerArtistInfo.querySelector("img"); // starting from playerArtistInfo we select it's image child
+        const songTitle = playerArtistInfo.querySelector("h6");
+        const songAlbum = playerArtistInfo.querySelector("p");
+
+        img.src = song.album.cover_small; // sets the source for the album image to be displayed
+        img.classList.add("img-fluid"); // prevents the image to be bigger than the space available
+        songTitle.innerText = song.title; // assigns the song title as innerText of the h6 element
+        songAlbum.innerText = song.album.title;
+
+        const currTime = document.querySelector(".player .currentTime"); //this block updates the timer text of the song
+        const duration = document.querySelector(".player .duration");
+        currTime.innerText = "00:00";
+        duration.innerText =
+          ("0" + Math.floor(song.duration / 60)).substr(-2) +
+          ":" +
+          ("0" + Math.floor(song.duration % 60)).substr(-2);
+
+        audio.src = song.preview; // preloads the .mp3 url to be played when clicking on the play button and not a card this time
+      };
+
+      const handlePlay = () => {
+        if (audio.played.length > 0) {
+          if (audio.paused) {
+            playIcon.src = "./playerbuttons/Pause.png";
+            audio.play();
+
+            console.log(1);
+          } else {
+            playIcon.src = "./playerbuttons/Play.png";
+            audio.pause();
+            console.log(2);
+          }
+        } else {
+          playIcon.src = "./playerbuttons/Pause.png";
+          audio.play();
+          console.log(3);
+        }
+      };
+
+      const changeProgressBar = (node, perc) => {
+        node.style.width = perc.toString() + "%"; // makes the bar grow from 0 to 100%
+        node.setAttribute("aria-valuenow", parseInt(perc.toString())); // assigns the percentage of the progress for screen readers
+      };
+
+      const handleProgressBarUpdate = (ended = false) => {
+        const progressBar = document.querySelector(".progress-bar");
+        const percentage = (audio.currentTime / audio.duration) * 100; // converting the time in percentages for the progress bar
+
+        changeProgressBar(progressBar, percentage);
+
+        if (ended) {
+          changeProgressBar(progressBar, 0);
+          playIcon.src = "./playerbuttons/Play.png";
+        }
+
+        const currTime = document.querySelector(".player .currentTime"); //this block updates the timer text of the song
+        const minutes = "0" + Math.floor(audio.currentTime / 60);
+        const seconds = "0" + Math.floor(audio.currentTime);
+        currTime.innerText = minutes.substr(-2) + ":" + seconds.substr(-2);
+      };
+
+      const handleProgressBarClick = (event) => {
+        // fired after clicking the progress-bar
+
+        const elem = event.currentTarget.firstElementChild;
+        const percentage = parseInt(
+          (event.offsetX / event.currentTarget.clientWidth) * 100 // calculates where you clicked in relation to the total width of the div (clientWidth)
+        );
+
+        elem.style.width = percentage.toString() + "%"; // updates the bar with the new position
+        elem.setAttribute("aria-valuenow", percentage.toString());
+
+        audio.currentTime = (percentage / 100) * audio.duration; // moves song time depending on where the progress-bar was clicked
+      };
+
+      audio.ontimeupdate = () => handleProgressBarUpdate(); // we are going to trigger a change in the progress bar
+      // when the event ontimeupdate fires, so very often indeed.
+
+      audio.onended = () => handleProgressBarUpdate(true); // triggered when the song ends, passing true as a parameter to reset the progress bar at the end
+
+      const handleChangeVolume = (event) => {
+        const volume = event.target.value / 100; // gets the volume in a range from 0 to 1 which is what the range expects
+        prevVolume = volume; // updates the default volume value
+        localStorage.setItem("prevVolume", volume); // sets the prevVolume to the localStorage to be retrieved after the refresh
+        audio.volume = volume; // affects the real audio volume with the new volume value
+      };
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const progressBar = document.querySelector(".progress"); // grabs the .progress container
+        progressBar.addEventListener("click", handleProgressBarClick); // attaches an onclick event on the progress bar to fire handleProgressBarClick upon clicking
+
+        const volumeRange = document.querySelector(
+          ".playerVolume input[type='range']"
+        ); // grabs the volume input range
+        volumeRange.addEventListener("change", handleChangeVolume); // attaches an onchange event to fire the handleChangeVolume when the input changes value
+
+        let storageVolume = localStorage.getItem("prevVolume"); // retrieves volume value from localStorage
+        if (storageVolume) {
+          // if a storageValue exists we set it as the audio volume
+          prevVolume = storageVolume;
+          audio.volume = storageVolume;
+          volumeRange.setAttribute("value", storageVolume * 100); // moves the input range to the correct position
+        }
+      });
+
+      const history = localStorage.getItem("query"); // attempts grabbing value from the localStorage, will be undefined if not present
+
+      let query = history ? history : "daft punk"; // if history has a value will be evaluated as truthy and uses the string, otherwise it falls back to "daft punk"
+
+      const handleSearchQuery = (e) => {
+        query = e.target.value; // sets new default value for query
+        localStorage.setItem("query", e.target.value); // adds the same value in the storage for persistance after refreshes
+      };
+
+      const albumCard = (songInfo) => {
+        // template for a single album card with dynamic data passed from the forEach in search()
+        return `<img
+                class="img-fluid"
+                src=${songInfo.album.cover_medium}
+                alt="img placeholder"
+              />
+              <p>
+                <a href="/album_page.html?albumId=${songInfo.album.id}">${songInfo.album.title}</a>
+                <br />
+                <a href="/artist_page.html?artistId=${songInfo.artist.id}">${songInfo.artist.name}</a>
+              </p>`;
+      };
+
+      const search = (q = query, firstLoad = false) => {
+        fetch(
+          "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + q
+
+          // OLD ENDPOINT EXAMPLE TO SEE HEADERS USAGE (NOT CURRENTLY WORKING)
+          // ,{
+          //   method: "GET",
+          //   headers: {
+          //     "x-rapidapi-key":
+          //       "44990dcd76msh9e7711544b7bcbbp18140cjsnaed06a042dae",
+          //     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+          //   },
+          // }
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((parsedBody) => {
+            // parsedBody has the actual data from the fetch's body
+            // console.log(parsedBody);
+
+            const songsInfo = parsedBody.data; // need to access the data property to get the array of elements
+            const row = document.querySelector("#results > .row"); // grabs the container where we put all the newly generated columns
+
+            row.innerHTML = ""; // makes sure the container is empty before adding new data (eg. after the search)
+
+            songsInfo.forEach((song) => {
+              const spinner = document.querySelector(".spinner-border"); // grabs the spinner element
+              if (spinner) {
+                // check if it exists in the page
+                spinner.parentNode.remove(); // then removes it
+              }
+
+              const col = document.createElement("div"); // creates a new div that will be our new column for the card
+              col.className = "col text-center"; // adds the actual col class to make it a column
+              col.id = song.id;
+              col.innerHTML = albumCard(song); // this is when we fill the col with some content in its innerHTML
+              // via a function albumCard in which we pass the song object
+
+              col.onclick = () => setPlayerSong(song); // FUNCTION CALL IN EVENT HANDLERS MUST BE WRAPPED IN AN ANONIMOUS FUNCTION TO NOT EXECUTE RIGHT AWAY BUT WAIT THE EVENT TO CALL THEM
+
+              row.appendChild(col); // finally adding the new col (and every new col generated by the forEach) in the row element
+            });
+
+            if (firstLoad) {
+              const storageSongId = window.localStorage.getItem("songId");
+              const prevSong = songsInfo.find(
+                (song) => song.id === parseInt(storageSongId)
+              );
+              if (storageSongId && prevSong) {
+                if (prevSong) {
+                  setPlayerInfos(prevSong);
+                }
+              } else {
+                setPlayerInfos(songsInfo[0]);
+              }
+            }
+          })
+          .catch((err) => {
+            console.error(err); // in case of something going wrong the error will be catched here and logged
+          });
+      };
+
+      let rockArtists = [
+        "queen",
+        "u2",
+        "thepolice",
+        "eagles",
+        "thedoors",
+        "oasis",
+        "thewho",
+        "bonjovi",
+      ];
+
+      let popArtists = [
+        "maroon5",
+        "coldplay",
+        "onerepublic",
+        "jamesblunt",
+        "katyperry",
+        "arianagrande",
+      ];
+
+      let hipHopArtists = [
+        "eminem",
+        "snoopdogg",
+        "lilwayne",
+        "drake",
+        "kanyewest",
+      ];
+
+      window.onload = () => {
+        search(undefined, true); // executes the fetch on page loading (we pass undefined to use the default query parameter, true for firstLoad value)
+
+        // Promise.all([
+        //   fetch(
+        //     "https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem"
+        //   ).then((data) => data.json()),
+        //   fetch(
+        //     "https://striveschool-api.herokuapp.com/api/deezer/search?q=nirvana"
+        //   ).then((data) => data.json()),
+        //   fetch(
+        //     "https://striveschool-api.herokuapp.com/api/deezer/search?q=queen"
+        //   ).then((data) => data.json()),
+        // ])
+        // .then((data) => console.log(data));
+
+        const inputField = document.getElementById("searchField"); // grabs searchField reference
+        inputField.addEventListener("change", handleSearchQuery); // attaches an event listener of type "change" and
+        // passes handleSearchQuery to be executed after the event gets triggered
+
+        const Rock = document.getElementById("Rock");
+        Rock.addEventListener("click", () => {
+          getSongsFromArr(rockArtists, "Rock");
+        });
+
+        document.getElementById("Pop").onclick = () => {
+          getSongsFromArr(popArtists, "Pop");
+        };
+
+        document.getElementById("Hip Hop").onclick = () => {
+          getSongsFromArr(hipHopArtists, "Hip Hop");
+        };
+
+        // const eminem = async () => {
+        //   const response = await fetch(
+        //     "https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem"
+        //   );
+        //   const body = await response.json();
+        //   return body.data;
+        //   // .then(response => response.json())
+        //   // .then(body => {
+        //   //   body
+        //   // })
+        // };
+
+        // const nirvana = async () => {
+        //   const response = await fetch(
+        //     "https://striveschool-api.herokuapp.com/api/deezer/search?q=nirvana"
+        //   );
+        //   const body = await response.json();
+        //   return body.data;
+        // };
+
+        // const doors = async () => {
+        //   const response = await fetch(
+        //     "https://striveschool-api.herokuapp.com/api/deezer/search?q=doors"
+        //   );
+        //   const body = await response.json();
+        //   return body.data;
+        // };
+
+        // Promise.all([eminem(), nirvana(), doors()]).then((data) =>
+        //   console.log(data)
+        // );
+      };
+    </script>
+  </body>
+</html>
