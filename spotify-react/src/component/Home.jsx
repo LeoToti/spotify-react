@@ -19,6 +19,7 @@ class Home extends React.Component {
 
   state = {
     query: "pink",
+    queryFly: "",
     queryError: "",
     selected: [],
     isLoading: false,
@@ -64,6 +65,7 @@ class Home extends React.Component {
     
 
     if (previousState.query !== this.state.query) {
+     
        
         this.fectchData()
     }
@@ -77,6 +79,7 @@ class Home extends React.Component {
 
 render() {
   let title = this.props.title
+  let queryFly
   return (
    
    
@@ -116,9 +119,10 @@ render() {
                   </li>
                   <li>
                     <div className="input-group mt-3">
-                      <input type="text" className="form-control mb-2" id="searchField" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
+                      <input type="text" className="form-control mb-2" id="searchField" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" onChange={(e)=>this.setState({ queryFly: e.target.value })} value={this.state.queryFly} />
                       <div className="input-group-append" style={{marginBottom: '4%'}}>
-                        <button className="btn btn-outline-secondary btn-sm" type="button" id="button-addon1" onclick="search()">
+                        <button className="btn btn-outline-secondary btn-sm" type="button" id="button-addon1" onClick={(e) => this.setState({ query: this.state.queryFly })} value={this.state.query}
+           >
                           GO
                         </button>
                       </div>
@@ -161,7 +165,7 @@ render() {
           {
           this.state.selected.map((album) => {
               return (
-                <div key={album.album.id} className="col-md-2 m-1 mx-5" onClick={() => this.props.history.push('/artist/' + album.album.id)}>
+                <div key={album.album.id} className="col-md-2 m-1 mx-5" onClick={() => this.props.history.push('/artist/' + album.artist.id)}>
                 
                   {!this.props.loading ?<img
                     height="250px"

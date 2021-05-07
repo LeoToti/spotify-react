@@ -2,6 +2,15 @@
 import React from "react";
 import { Card, Row } from "react-bootstrap";
 import { Col, Form, Button, FormControl, Spinner } from "react-bootstrap";
+import logo from "../logo/Spotify_Logo.png"
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import Shuffle from "../playerbuttons/Shuffle.png"
+import Previous from "../playerbuttons/Previous.png"
+import Play from  "../playerbuttons/Play.png"
+import Next from "../playerbuttons/Next.png"
+import Repeat from "../playerbuttons/Repeat.png"
 
 
 
@@ -10,12 +19,67 @@ import { Col, Form, Button, FormControl, Spinner } from "react-bootstrap";
 
 class Artist extends React.Component {
 
+    state = {
+        query: "tt0250415",
+        queryError: "",
+        selected: {},
+        isLoading: false,
+      };
+    
+      fectchData = async function () {
+        this.setState({ isLoading: true });
+        let endpoint = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
+        let query = this.state.query;
+        let idFromTheURLBar = this.props.match.params.id;
+        console.log(idFromTheURLBar)
+        
+    
+        console.log(query)
+        this.setState({ query: idFromTheURLBar });
+        let endpointQuery = + query;
+        console.log(endpointQuery)
+        try {
+          let response = await fetch(endpoint + endpointQuery);
+    
+          if (response.ok) {
+            console.log("Response is ok!!");
+            let data = await response.json();
+            console.log(data);
+            if (data) {
+              this.setState({ queryError: "" });
+              console.log(data)
+              this.setState({ selected: data });
+              console.log(this.state.selected);
+              this.setState({ isLoading: false });
+            } else {
+              this.setState({ queryError: data.Error });
+              this.setState({ isLoading: false });
+              console.log(this.state.queryError);
+            }
+          } else {
+            alert("Cant fetch the data!");
+          }
+        } catch (error) {
+          alert(error);
+        }
+      };
+    
+      componentDidMount = async function () {
+        this.fectchData();
+      };
+    
+      componentDidUpdate = async (previousProps, previousState) => {
+        if (previousState.query !== this.state.query) {
+          this.fectchData();
+        }
+      };
+
 
 
 
 
 render() {
-    let title = this.props.title
+    let title = this.props.id
     return (
         
              
@@ -37,7 +101,7 @@ render() {
               <nav className="navbar navbar-expand-lg navbar-expand-md navbar-white bg-navbar fixed-left justify-content-between" id="sidebar">
                 <div className="nav-container">
                   <a className="navbar-brand" href="index.html">
-                    <img src="logo/Spotify_Logo.png" alt="Spotify_Logo" width={131} height={40} />
+                    <img src={logo} alt="Spotify_Logo" width={131} height={40} />
                   </a>
                   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
@@ -148,19 +212,19 @@ render() {
             <div className="col-6">
               <div className="playerControls w-50 d-flex justify-content-between">
                 <a href="#">
-                  <img src="playerbuttons/Shuffle.png" alt="shuffle" />
+                  <img src={Shuffle} alt="shuffle" />
                 </a>
                 <a href="#">
-                  <img src="playerbuttons/Previous.png" alt="previous" />
+                  <img src={Previous} alt="previous" />
                 </a>
                 <a href="#" onclick>
-                  <img src="playerbuttons/Play.png" alt="play" />
+                  <img src={Play} alt="play" />
                 </a>
                 <a href="#">
-                  <img src="playerbuttons/Next.png" alt="next" />
+                  <img src={Next} alt="next" />
                 </a>
                 <a href="#">
-                  <img src="playerbuttons/Repeat.png" alt="repeat" />
+                  <img src={Repeat} alt="repeat" />
                 </a>
               </div>
               <div className="progressContainer d-flex align-items-center">
@@ -183,8 +247,7 @@ render() {
         </div>
         {/*END NAVBAR BOTTOM*/}
       </>
-      
-          
+                
               )
               
           }
