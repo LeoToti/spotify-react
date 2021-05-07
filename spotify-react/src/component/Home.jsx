@@ -18,7 +18,7 @@ import Repeat from "../playerbuttons/Repeat.png"
 class Home extends React.Component {
 
   state = {
-    query: "queen",
+    query: "pink",
     queryError: "",
     selected: [],
     isLoading: false,
@@ -138,7 +138,8 @@ render() {
       </div>
       {/*END SIDEBAR VERTICAL*/}
       {/*MAIN*/}
-      <div className="col-12 mainPage">
+      <div className="col-10 mainPage">
+        
         <div className="row justify-content-center">
           <div className="col-9 col-lg-11 mainLinks d-none d-md-flex">
             <a id="Rock" href="#">ROCK</a>
@@ -148,17 +149,47 @@ render() {
             <a href="#">DISCOVER</a>
           </div>
         </div>
+        
         <div className="row justify-content-center">
           <div className="col-10">
-            <div id="searchResults" style={{display: 'none'}}>
-              <h2>Search Results</h2>
+            <div id="searchResults" >
+              <h2>{this.selected}</h2>
+              
               <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" />
+              <div className="container-fluid">
+          <Row>
+          {
+          this.state.selected.map((album) => {
+              return (
+                <div key={album.album.id} className="col-md-2 m-1 mx-5" onClick={() => this.props.history.push('/artist/' + album.album.id)}>
+                
+                  {!this.props.loading ?<img
+                    height="250px"
+                    
+                    className="d-block w-80"
+                    src={album.album.cover_small}
+                  /> : <img
+                  height="250px"
+                  
+                  className="d-block w-80"
+                  src={"https://via.placeholder.com/150"}
+                /> }
+                  
+                  
+                </div>
+              );
+            })
+            }
+          </Row>
+        </div>
             </div>
+           
           </div>
         </div>
         <div className="row justify-content-center">
           <div className="col-10">
             <div id="results">
+             
               <h2 className="pl-3 text-white" />
               <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3">
                 <div>
